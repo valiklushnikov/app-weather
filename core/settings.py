@@ -17,8 +17,8 @@ if DEBUG:
     mimetypes.add_type("application/javascript", ".js", True)
     mimetypes.add_type("text/css", ".css", True)
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-CSRF_TRUSTED_ORIGINS = ["https://weather-app-services.up.railway.app",]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "app-weather-production.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = ["https://app-weather-production.up.railway.app",]
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
