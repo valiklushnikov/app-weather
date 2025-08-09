@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
 
 load_dotenv()
 
@@ -17,6 +18,9 @@ if DEBUG:
     mimetypes.add_type("text/css", ".css", True)
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+CSRF_TRUSTED_ORIGINS = ["https://weather-app-services.up.railway.app",]
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 
 INSTALLED_APPS = [
@@ -27,11 +31,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
     "apps.weather.apps.WeatherConfig",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -39,6 +45,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 ROOT_URLCONF = "core.urls"
 
@@ -66,6 +74,9 @@ DATABASES = {
     }
 }
 
+if os.environ.get("ENVIRONMENT") == "production":
+    DATABASES["default"] = dj_database_url.config(default=os.getenv("DATABASE_URL"))
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -91,6 +102,7 @@ USE_TZ = True
 
 AUTH_USER_MODEL = "accounts.User"
 
+SITE_ID = 1
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
