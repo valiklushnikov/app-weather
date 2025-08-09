@@ -92,9 +92,18 @@ USE_TZ = True
 AUTH_USER_MODEL = "accounts.User"
 
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "static"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
+
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+LOGIN_REDIRECT_URL = "home"
+LOGIN_URL = "accounts:login"
+LOGOUT_URL = "accounts:logout"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

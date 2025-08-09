@@ -1,0 +1,17 @@
+{% extends 'weather/base.html' %}
+{% load static %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<main class="page page--register-done wrapper-center">
+    <div class="register-done__content">
+        <h1>Welcome {{ new_user.username }}!</h1>
+        <p class="">
+            Your account has been successfully created.
+            Now you can
+            <a class="" href="{% url 'accounts:login' %}">Log in</a>
+        </p>
+    </div>
+</main>
+{% endblock %}
