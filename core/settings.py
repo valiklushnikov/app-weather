@@ -20,6 +20,7 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 INSTALLED_APPS = [
+    "apps.accounts.apps.AccountsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -86,6 +87,8 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+AUTH_USER_MODEL = "accounts.User"
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "static"
