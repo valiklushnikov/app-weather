@@ -1,0 +1,95 @@
+{% extends 'weather/base.html' %}
+{% load static %}
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+{% if is_home %}
+{% include "weather/includes/header.html" %}
+{% endif %}
+<main class="page page--home">
+    {% if messages %}
+    <div class="d-flex">
+        <ul class="messages">
+            {% for message in messages %}
+            <li
+            {% if message.tags %} class="{{ message.tags }} announcement__title"{% endif %}>
+            {{ message|capfirst }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+    {% if weather %}
+    <section class="weather-overview__container weather-overview">
+        <div class="weather-overview__detail-info detail-info">
+            <div class="detail-info__feels-like">{{ weather.feels_like|floatformat:0 }}°C</div>
+            <div class="detail-info__speed">{{ weather.wind_speed|floatformat:1 }} m/s</div>
+            <div class="detail-info__humidity">{{ weather.humidity|floatformat:0 }}%</div>
+            <div class="detail-info__pressure">{{ weather.pressure|floatformat:0 }}hPa</div>
+            <div class="detail-info__day-time time-day">
+                <div class="time-day__sunrise">{{ weather.sunrise|date:"h:i A" }}</div>
+                <div class="time-day__sunset">{{ weather.sunset|date:"h:i A" }}</div>
+            </div>
+        </div>
+        <div class="weather-overview__main-info">
+            <div class="weather-overview__location weather-location">
+                <div class="weather-location__coutry">
+                    <span class="weather-location--icon-location"></span>
+                    {{ weather.city }}
+                </div>
+                <div class="weather-location__temp-toggle temp-toggle">
+                    <button class="temp-toggle__button" data-unit="fahrenheit">F</button>
+                    <button class="temp-toggle__button toggle__button-active" data-unit="celsius">C</button>
+                </div>
+            </div>
+            <div class="main-info">
+                <div class="main-info__left left-items">
+                    <div class="left-items__day">{{ weather.search_date|date:"l" }}</div>
+                    <div class="left-items__date">{{ weather.search_date|date:"d.m.Y" }}</div>
+                    <div class="left-items__temp">
+                        <div class="left-items__temp-value celsius temp-visible">
+                            {{ weather.temperature|floatformat:1 }}°C
+                        </div>
+                        <div class="left-items__temp-value fahrenheit temp-hidden">
+                            {{ weather.temperature_fahrenheit|floatformat:1 }}°F
+                        </div>
+                        <div class="left-items__temp-range">
+                            <div>High: {{ weather.temp_max|floatformat:1 }}</div>
+                            <div>Low: {{ weather.temp_min|floatformat:1 }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-info__right right-items">
+                    <div class="right-items__picture">
+                        <picture>
+                            <img class="right-items__image" alt="Image" src="{{ weather.weather_status.image_url }}">
+                        </picture>
+                    </div>
+                    <div class="right-items__condition">{{ weather.weather_status.name }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="weather-overview__history overview-history">
+            <div class="overview-history__label">User history</div>
+            <div class="overview-history__items">
+                {% for search in history %}
+                <div class="overview-history__item history-item">
+                    <div class="history-item__user">{{ search.user.email }}</div>
+                    <div class="history-item__city">{{ search.city }}</div>
+                    <div class="history-item__temp">{{ search.temperature|floatformat:1 }}</div>
+                    <div class="history-item__date">{{ search.search_date|date:"d.m.Y" }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% else %}
+    <section class="no-weather d-flex">
+        <div class="weather-overview__no-search">
+            <h2 class="announcement__title" style="align-self: end">Welcome! Please search city weather</h2>
+        </div>
+    </section>
+    {% endif %}
+    {% endif %}
+</main>
+{% endblock %}
