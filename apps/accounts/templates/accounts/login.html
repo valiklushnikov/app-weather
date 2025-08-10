@@ -28,8 +28,9 @@
             </div>
             {% endif %}
             <div class="login-form__forgot">
-                <label>
-                    <input type="checkbox">
+                <label class="login-form__checkbox">
+                    <input type="checkbox" name="remember" value="remember">
+                    <span class="checkmark"></span>
                     Remember me
                 </label>
                 <a href="{% url 'accounts:password_reset' %}">Forgot password?</a>
