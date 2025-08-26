@@ -38,6 +38,10 @@ input,
 textarea {
 	width: 100%;
 }
+input[type="checkbox"] {
+  -webkit-appearance: checkbox;
+  appearance: checkbox;
+}
 label {
 	display: inline-block;
 }
@@ -326,6 +330,31 @@ input[type=checkbox] {
   align-items: center;
   justify-content: space-between;
   font-size: 0.875rem;
+}
+.login-form__checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.login-form__checkbox .checkmark {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    position: relative;
+    vertical-align: middle;
+}
+.login-form__checkbox input:checked + .checkmark::after {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 0;
+    width: 4px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
 }
 .login-form__forgot label input {
   accent-color: #fff;

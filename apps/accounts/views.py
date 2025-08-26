@@ -12,6 +12,11 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
+                    remember_user = request.POST.get("remember")
+                    if not remember_user:
+                        request.session.set_expiry(0)
+                    else:
+                        request.session.set_expiry(60 * 60 * 24)
                     return redirect("weather:home")
                 else:
                     form.add_error(None, "Account is disabled")

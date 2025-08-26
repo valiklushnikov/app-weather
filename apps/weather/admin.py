@@ -12,7 +12,7 @@ class WeatherStatusAdmin(admin.ModelAdmin):
 
 
 @admin.register(SearchHistory)
-class WeatherStatusAdmin(admin.ModelAdmin):
+class SearchStatusAdmin(admin.ModelAdmin):
     list_display = (
         "user",
         "weather_status",
